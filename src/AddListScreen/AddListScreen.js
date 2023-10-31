@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Button, Text, View } from "react-native";
 
-const HomeScreen = ({ navigation }) => {
+const AddListScreen = ({ navigation }) => {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Home Screen</Text>
+            <Text>Adicionar Lista</Text>
             
-            <Button title="Add List" onPress={() => navigation.navigate("AddListScreen")}/>
+            <Button title="Voltar" onPress={() => navigation.navigate("Home")}/>
         </View>
     );
 }
 
-export default HomeScreen;
+export default AddListScreen;
