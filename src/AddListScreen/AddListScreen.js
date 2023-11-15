@@ -1,15 +1,34 @@
 import { useEffect, useState } from "react";
 import { Button, Text, View, TextInput, StyleSheet } from "react-native";
 
-export default AddListScreen = ({ navigation }) => {
+export default AddListScreen = ({ navigation, route }) => {
+    
+    const [newListName, setNewListName] = useState("");
+ 
+    const { onAddList } = route.params;
+  
+
+    const addList = () => {
+     
+      if (newListName) {
+        
+        onAddList(newListName);
+        navigation.goBack();
+      }
+    };
+  
+
     return (
         <View style={styles.container}>
 
             <Text>Adicionar Lista</Text>
 
-            <TextInput style={styles.input} placeholder="Digite o nome da lista"></TextInput>
+            <TextInput style={styles.input} placeholder="Digite o nome da lista"
+                value={newListName}
+                onChangeText={(text) => setNewListName(text)}>
+            </TextInput>
 
-            <Button title="Adicionar Lista" onPress={() => navigation.navigate("Home")} />
+            <Button title="Adicionar Lista" onPress={addList} />
 
 
         </View>
