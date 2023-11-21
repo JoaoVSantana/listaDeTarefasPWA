@@ -34,23 +34,35 @@ export default HomeScreen = ({ navigation }) => {
       }
     
       const ItemList = (id) => {
-        navigation.navigate("ItemList", {
+        navigation.navigate("TaskScreen", {
           listId: id,
           list: list, 
           onEditList: saveEditedList,
         });
       };
-    
-     
 
-      const saveListsToStorage = async (listsToSave) => {
+      const deleteList = (id) => {
+       
+        const updatedLists = lists.filter((list) => list.id !== id);
+    
+       
+        setLists(updatedLists);
+    
         try {
-          await AsyncStorage.setItem("lists", JSON.stringify(listsToSave))
+
+          saveListsToStorage(updatedLists);
         } catch (error) {
           console.error("Error saving lists: ", error);
         }
       };
 
+      const saveListsToStorage = async (listsToSave) => {
+        try {
+          await AsyncStorage.setItem("lists", JSON.stringify(listsToSave))
+        } catch (error) {
+          console.error("Erro pra salvar a lista: ", error);
+        }
+      };
 
     return (
         <View style={styles.container}>
@@ -69,6 +81,11 @@ export default HomeScreen = ({ navigation }) => {
               <Text>{list.name}</Text>
 
             </TouchableOpacity>
+
+            <TouchableOpacity style={styles.excluirBotao} onPress={() => deleteList(list.id)}>
+            <Text style={styles.textoBotao}>Delete</Text>
+          </TouchableOpacity>
+
 
         </View>
       ))}
@@ -95,5 +112,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignSelf: 'center',
 
+    },
+
+    excluirBotao: {
+      backgroundColor: '#13abde',
+      width:40,
+      height:20
     }
 })
