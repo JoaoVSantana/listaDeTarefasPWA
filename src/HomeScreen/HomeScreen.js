@@ -32,15 +32,6 @@ export default HomeScreen = ({ navigation }) => {
           saveListsToStorage(updatedLists);
         }
       }
-
-      const editList = (id) => {
-       
-        navigation.navigate("EditList", {
-          listId: id,
-          editedListName: editedListName,
-          onEditList: saveEditedList,
-        });
-      };
     
       const ItemList = (id) => {
         navigation.navigate("ItemList", {
@@ -50,21 +41,7 @@ export default HomeScreen = ({ navigation }) => {
         });
       };
     
-      const saveEditedList = (listId, newName) => {
-        if (listId !== null && newName.trim() !== "") {
-      
-          const updatedLists = lists.map((list) =>
-            list.id === listId ? { ...list, name: newName } : list
-          );
-        
-          setLists(updatedLists);
-       
-          saveListsToStorage(updatedLists);
-      
-          setListToEdit(null);
-          setEditedListName("");
-        }
-      };
+     
 
       const saveListsToStorage = async (listsToSave) => {
         try {
@@ -85,11 +62,11 @@ export default HomeScreen = ({ navigation }) => {
             }} >
             </Button>
             {lists.map((list) => (
-        <View style={styles.editarView} key={list.id}>
+        <View key={list.id}>
 
             <TouchableOpacity onPress={() => ItemList(list.id)}>
             
-              <Text style={styles.editarNameList}>{list.name}</Text>
+              <Text>{list.name}</Text>
 
             </TouchableOpacity>
 
